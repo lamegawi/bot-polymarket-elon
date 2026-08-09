@@ -77,6 +77,9 @@ def cargar_config():
         "api_secret": os.environ.get("POLY_API_SECRET", ""),
         "api_passphrase": os.environ.get("POLY_API_PASSPHRASE", ""),
         "wallet_private_key": os.environ.get("POLY_PRIVATE_KEY", ""),
+        "wallet_address": os.environ.get("POLY_WALLET_ADDRESS", ""),
+        "relayer_api_key": os.environ.get("POLY_RELAYER_API_KEY", ""),
+        "relayer_api_key_address": os.environ.get("POLY_RELAYER_API_KEY_ADDRESS", ""),
         "confirmado": os.environ.get("REAL_CONFIRMADO", "") == "1",
     }
     for k, v in env.items():
