@@ -1,36 +1,13 @@
-# 🤖 Bot Polymarket — 24/7 gratis con GitHub Actions
-# -----------------------------------------------------
-# Este workflow ejecuta una pasada completa del bot cada 15 minutos
-# usando los minutos GRATIS de GitHub Actions.
-#
-# REQUISITOS (ver GUIA_24H_GRATIS.md):
-#   1) Repositorio en GitHub (PÚBLICO recomendado → minutos ilimitados;
-#      privado = 2.000 min/mes → suficiente para ~15 pasadas/día)
-#   2) Secretos del repo:
-#        PAT_BOT          → token de acceso personal (permisos contents:write)
-#        POLY_API_KEY     → (solo modo real) claves de Polymarket
-#        POLY_API_SECRET
-#        POLY_API_PASSPHRASE
-#   3) El estado se guarda haciendo commit de los archivos en cada pasada
-#      (así el bot "recuerda" entre ejecuciones).
-#
-# NOTAS:
-#   · Los cron de GitHub pueden retrasarse unos minutos (aceptable aquí).
-#   · La primera pasada de cada hora tarda más (instala dependencias).
-#   · Si el repo está 60 días sin actividad, GitHub pausa los cron;
-#     el propio bot hace commits cada 15 min → nunca se pausa.
-#   · NUNCA subir config_real.json (está en .gitignore).
-
-name: Bot Polymarket Elon
+name: Bot Polymarket Elon (real)
 
 on:
   schedule:
-    - cron: '*/15 * * * *'      # cada 15 minutos (UTC)
-  workflow_dispatch: {}          # permite lanzarlo a mano desde la web
+    - cron: '*/15 * * * *'
+  workflow_dispatch: {}
 
 concurrency:
   group: bot
-  cancel-in-progress: false      # nunca cancelar una pasada a medias
+  cancel-in-progress: false
 
 jobs:
   bot:
@@ -45,21 +22,24 @@ jobs:
       - name: Configurar Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.12'
 
-      - name: Instalar dependencias (con caché)
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/pip
-          key: pip-${{ runner.os }}-bot
-      - run: pip install openpyxl py-clob-client
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --quiet --upgrade pip
+          python -m pip install --quiet openpyxl py-clob-client-v2
 
-      - name: Ejecutar una pasada del bot
+      - name: Ejecutar una pasada del bot (MODO REAL)
         env:
+          POLY_PRIVATE_KEY: ${{ secrets.POLY_PRIVATE_KEY }}
+          POLY_WALLET_ADDRESS: ${{ secrets.POLY_WALLET_ADDRESS }}
           POLY_API_KEY: ${{ secrets.POLY_API_KEY }}
           POLY_API_SECRET: ${{ secrets.POLY_API_SECRET }}
           POLY_API_PASSPHRASE: ${{ secrets.POLY_API_PASSPHRASE }}
-        run: python3 -u bot.py --excel
+          POLY_RELAYER_API_KEY: ${{ secrets.POLY_RELAYER_API_KEY }}
+          POLY_RELAYER_API_KEY_ADDRESS: ${{ secrets.POLY_RELAYER_API_KEY_ADDRESS }}
+          REAL_CONFIRMADO: ${{ secrets.REAL_CONFIRMADO }}
+        run: python -u bot.py --modo real --excel
 
       - name: Guardar estado (commit de los datos)
         run: |
