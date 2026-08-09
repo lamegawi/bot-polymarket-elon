@@ -5,6 +5,9 @@ on:
     - cron: '*/15 * * * *'
   workflow_dispatch: {}
 
+permissions:
+  contents: write
+
 concurrency:
   group: bot
   cancel-in-progress: false
@@ -33,11 +36,6 @@ jobs:
         env:
           POLY_PRIVATE_KEY: ${{ secrets.POLY_PRIVATE_KEY }}
           POLY_WALLET_ADDRESS: ${{ secrets.POLY_WALLET_ADDRESS }}
-          POLY_API_KEY: ${{ secrets.POLY_API_KEY }}
-          POLY_API_SECRET: ${{ secrets.POLY_API_SECRET }}
-          POLY_API_PASSPHRASE: ${{ secrets.POLY_API_PASSPHRASE }}
-          POLY_RELAYER_API_KEY: ${{ secrets.POLY_RELAYER_API_KEY }}
-          POLY_RELAYER_API_KEY_ADDRESS: ${{ secrets.POLY_RELAYER_API_KEY_ADDRESS }}
           REAL_CONFIRMADO: ${{ secrets.REAL_CONFIRMADO }}
         run: python -u bot.py --modo real --excel
 
@@ -47,6 +45,4 @@ jobs:
           git config user.email "bot-poly@users.noreply.github.com"
           git add -A
           git diff --cached --quiet || git commit -m "estado bot $(date -u +'%Y-%m-%d %H:%M')"
-          git push "https://x-access-token:${PAT_BOT}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main
-        env:
-          PAT_BOT: ${{ secrets.PAT_BOT }}
+          git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main
