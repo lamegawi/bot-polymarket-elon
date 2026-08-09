@@ -1,0 +1,73 @@
+# 🤖 Bot Polymarket — 24/7 gratis con GitHub Actions
+# -----------------------------------------------------
+# Este workflow ejecuta una pasada completa del bot cada 15 minutos
+# usando los minutos GRATIS de GitHub Actions.
+#
+# REQUISITOS (ver GUIA_24H_GRATIS.md):
+#   1) Repositorio en GitHub (PÚBLICO recomendado → minutos ilimitados;
+#      privado = 2.000 min/mes → suficiente para ~15 pasadas/día)
+#   2) Secretos del repo:
+#        PAT_BOT          → token de acceso personal (permisos contents:write)
+#        POLY_API_KEY     → (solo modo real) claves de Polymarket
+#        POLY_API_SECRET
+#        POLY_API_PASSPHRASE
+#   3) El estado se guarda haciendo commit de los archivos en cada pasada
+#      (así el bot "recuerda" entre ejecuciones).
+#
+# NOTAS:
+#   · Los cron de GitHub pueden retrasarse unos minutos (aceptable aquí).
+#   · La primera pasada de cada hora tarda más (instala dependencias).
+#   · Si el repo está 60 días sin actividad, GitHub pausa los cron;
+#     el propio bot hace commits cada 15 min → nunca se pausa.
+#   · NUNCA subir config_real.json (está en .gitignore).
+
+name: Bot Polymarket Elon
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'      # cada 15 minutos (UTC)
+  workflow_dispatch: {}          # permite lanzarlo a mano desde la web
+
+concurrency:
+  group: bot
+  cancel-in-progress: false      # nunca cancelar una pasada a medias
+
+jobs:
+  bot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependencias (con caché)
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-${{ runner.os }}-bot
+      - run: pip install openpyxl py-clob-client
+
+      - name: Ejecutar una pasada del bot
+        working-directory: estrategia_elon_tweets
+        env:
+          POLY_API_KEY: ${{ secrets.POLY_API_KEY }}
+          POLY_API_SECRET: ${{ secrets.POLY_API_SECRET }}
+          POLY_API_PASSPHRASE: ${{ secrets.POLY_API_PASSPHRASE }}
+        run: python3 -u bot.py --excel
+
+      - name: Guardar estado (commit de los datos)
+        run: |
+          git config user.name "bot-poly"
+          git config user.email "bot-poly@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "estado bot $(date -u +'%Y-%m-%d %H:%M')"
+          git push "https://x-access-token:${PAT_BOT}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main
+        env:
+          PAT_BOT: ${{ secrets.PAT_BOT }}

@@ -1,0 +1,7 @@
+cd C:\USERS\LAMEG\BITUNIX-BOT\estrategia_elon_tweets
+git init
+git add .
+git commit -m "bot v1"
+git branch -M main
+git remote add origin https://github.com/lamegawi/bot-polymarket-elon.git
+git push -u origin main

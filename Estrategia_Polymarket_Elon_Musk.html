@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estrategia Polymarket · Elon Musk # tweets (48 h)</title>
+<style>
+  :root{ --azul:#16213B; --azul2:#0057FF; --naranja:#C05621; --verde:#1E7A34; --rojo:#C0392B;
+         --bg:#F4F6FB; --card:#FFFFFF; --borde:#E2E7F2; --texto:#23283B; --gris:#6B7280; }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+        background:var(--bg); color:var(--texto); line-height:1.55; }
+  .wrap{ max-width:920px; margin:0 auto; padding:24px 16px 60px; }
+  header{ background:linear-gradient(135deg,#16213B 0%,#0B3A8C 60%,#0057FF 100%); color:#fff;
+          border-radius:14px; padding:28px 30px; margin-bottom:22px; }
+  header h1{ font-size:1.55rem; letter-spacing:.2px; }
+  header p{ opacity:.92; font-size:.95rem; margin-top:6px; }
+  .badges{ margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; }
+  .badge{ background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.35);
+          border-radius:999px; padding:4px 12px; font-size:.78rem; font-weight:600; }
+  section{ background:var(--card); border:1px solid var(--borde); border-radius:12px;
+           padding:22px 26px; margin-bottom:18px; }
+  h2{ font-size:1.15rem; color:var(--azul); margin-bottom:10px; padding-bottom:8px;
+      border-bottom:2px solid var(--azul2); }
+  h3{ font-size:.98rem; color:var(--azul); margin:16px 0 6px; }
+  p, li{ font-size:.92rem; }
+  ul, ol{ padding-left:22px; }
+  li{ margin:4px 0; }
+  .num{ background:#EEF3FF; border-radius:8px; padding:2px 7px; font-weight:700; color:var(--azul2); }
+  table{ border-collapse:collapse; width:100%; margin:12px 0; font-size:.86rem; }
+  th{ background:var(--azul); color:#fff; padding:8px 10px; text-align:left; font-weight:600; }
+  td{ padding:7px 10px; border-bottom:1px solid var(--borde); }
+  tr:nth-child(even) td{ background:#F8FAFE; }
+  .derecha{ text-align:right; }
+  .resaltada td{ background:#FDE9D9 !important; font-weight:700; }
+  .alert{ border-left:4px solid var(--naranja); background:#FFF7EF; padding:12px 14px;
+          border-radius:0 8px 8px 0; margin:12px 0; font-size:.88rem; }
+  .info{ border-left:4px solid var(--azul2); background:#EEF4FF; padding:12px 14px;
+         border-radius:0 8px 8px 0; margin:12px 0; font-size:.88rem; }
+  .ok{ color:var(--verde); font-weight:700; }
+  .ko{ color:var(--rojo); font-weight:700; }
+  .mono{ font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.84rem;
+         background:#F1F3F9; padding:1px 5px; border-radius:5px; }
+  .flujo{ display:flex; flex-direction:column; gap:6px; margin:12px 0; }
+  .flujo .nodo{ border:1.5px solid var(--borde); border-radius:9px; padding:8px 12px;
+                font-size:.87rem; background:#FAFBFE; }
+  .flujo .flecha{ text-align:center; color:var(--gris); font-size:.8rem; }
+  .flujo .si{ color:var(--verde); font-weight:700; }
+  .flujo .no{ color:var(--rojo); font-weight:700; }
+  .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media (max-width:640px){ .grid2{ grid-template-columns:1fr; } }
+  .kpi{ background:#F1F5FF; border:1px solid #D6E2FF; border-radius:10px; padding:14px 16px; }
+  .kpi .v{ font-size:1.35rem; font-weight:800; color:var(--azul2); }
+  .kpi .l{ font-size:.78rem; color:var(--gris); text-transform:uppercase; letter-spacing:.4px; }
+  footer{ color:var(--gris); font-size:.78rem; text-align:center; margin-top:10px; }
+  .ref{ font-size:.8rem; color:var(--gris); }
+  .ref a{ color:var(--azul2); }
+  .regla{ display:flex; gap:10px; margin:6px 0; font-size:.9rem; }
+  .regla .n{ flex:0 0 26px; height:26px; border-radius:50%; background:var(--azul2); color:#fff;
+             text-align:center; line-height:26px; font-weight:700; font-size:.8rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>🎯 Estrategia de predicciones — Polymarket · Elon Musk # tweets (ventanas de 48 h)</h1>
+  <p>Sistema objetivo y medible basado en la actividad real de @elonmusk · progresión de apuestas con reinicio automático · cuota mínima 3.00</p>
+  <div class="badges">
+    <span class="badge">Stake inicial $3.30</span>
+    <span class="badge">Multiplicador 1.50×</span>
+    <span class="badge">Cuota mínima 3.00</span>
+    <span class="badge">Máx. 7 pasos por ciclo</span>
+    <span class="badge">1 apuesta activa a la vez</span>
+    <span class="badge">Fecha: 8 de agosto de 2026 · v1.0</span>
+  </div>
+</header>
+
+<!-- ============ 1. RESUMEN ============ -->
+<section>
+  <h2>1 · Resumen ejecutivo</h2>
+  <p>La estrategia apuesta en los mercados de Polymarket que preguntan <b>cuántos tweets publicará Elon Musk (@elonmusk) en una ventana de 48 horas</b> (p. ej. «Elon Musk # tweets Mar 30 – Apr 1»). El sistema:</p>
+  <ol>
+    <li>Mide la actividad con dos métricas objetivas: <b>AVG7</b> (media de tweets/día de los últimos 7 días completos) y <b>V2</b> (tweets de los últimos 2 días completos).</li>
+    <li>Estima la probabilidad del rango de tweets del mercado con un <b>modelo de Poisson</b> y solo actúa cuando hay ventaja clara.</li>
+    <li>Aplica una <b>tabla de apuestas</b> que empieza en <b>$3.30</b> y se <b>multiplica por 1.50</b> en cada fallo, reiniciando a $3.30 al acertar, <b>sin abrir la siguiente apuesta hasta que la anterior se resuelva</b>, y solo con <b>cuota ≥ 3.00</b>.</li>
+    <li>Mide todo: cada apuesta se registra y se audita con KPIs (win rate, ROI, rachas, drawdown).</li>
+  </ol>
+  <div class="alert"><b>Aviso importante:</b> ninguna estrategia garantiza beneficios. El martingala recupera pérdidas a costa de riesgo creciente; este diseño lo limita con un stop de ciclo (paso 7). Operar solo con dinero que puedas permitirte perder.</div>
+</section>
+
+<!-- ============ 2. MERCADO ============ -->
+<section>
+  <h2>2 · El mercado objetivo (así son de verdad en Polymarket)</h2>
+  <p>Existen mercados recurrentes creados por la comunidad con el formato <b>«Elon Musk # tweets [fecha inicio] – [fecha fin]»</b>, con ventanas de 48 h, semanales y mensuales. Características verificadas (agosto de 2026):</p>
+  <ul>
+    <li><b>Ventana de 48 h:</b> p. ej. «Elon Musk # tweets March 30 – April 1, 2026» (del 30 mar 12:00 ET al 1 abr 12:00 ET).</li>
+    <li><b>Resultado por rangos (bins):</b> el mercado se divide en tramos de nº de tweets (p. ej. «90–114», «115–139», «140–164»…) y cada bin cotiza entre $0.00 y $1.00. Comprar el bin correcto a $0.33 o menos equivale a una cuota ≥ 3.00.</li>
+    <li><b>Reglas de resolución estándar:</b> cuentan los posts de portada, quote posts y reposts de @elonmusk (<i>los replies no cuentan</i>). Fuente de resolución: Social Blade (gráfico «Tweets Posted Weekly») o conteo manual sobre X si Social Blade falla.</li>
+    <li><b>Referencia de actividad real (mercados resueltos de Polymarket):</b> abril 2026: 1040-1079 tweets (~35/día) · mayo: 800-839 (~27/día) · junio: 960-999 (~32/día) · julio: 880-919 (~29/día) · semana 31 jul–7 ago: 180-199 (~26/día). El mercado mensual de agosto tenía a «1000+» como bin favorito.</li>
+    <li><b>Mercado de 48 h activo el 8 ago 2026:</b> «Elon Musk # tweets August 6 - August 8» (fin: 8 ago 12:00 ET, volumen ~$364k) con bins: &lt;40 a 0.38, 40-64 a 0.625, 65-89 a 0.009, 90+ a 0.0005 — el mercado implícitamente espera ~40-64 tweets en la ventana.</li>
+  </ul>
+  <div class="info"><b>Cómo usar esto:</b> cuando exista un mercado de 48 h, anota su bin [A, B] y el precio del YES, y ejecuta el motor de señal (script <span class="mono">senal.py</span> u hoja <span class="mono">Señal</span> del Excel). Si no existe mercado de 48 h válido ese día → <b>PASAR</b> (no hay apuesta).</div>
+</section>
+
+<!-- ============ 3. DATOS ============ -->
+<section>
+  <h2>3 · Datos: definiciones exactas (medible y objetivo)</h2>
+  <p>Todo el sistema se apoya en conteos diarios del día completo. Definiciones fijas:</p>
+  <ul>
+    <li><b>Día:</b> ventana de 24 h en hora ET, alineada con la resolución del mercado.</li>
+    <li><b>Conteo:</b> posts + quote posts + reposts de @elonmusk (el mismo criterio del mercado; verifica las reglas del mercado concreto antes de apostar).</li>
+    <li><b>Fuente:</b> Social Blade o conteo manual del perfil X de @elonmusk a las 23:59 ET. Para automatizar: X API v2 (<span class="mono">/users/:id/tweets</span> + reposts), que es lo más robusto.</li>
+    <li><b>AVG7</b> = (T<sub>−1</sub> + T<sub>−2</sub> + … + T<sub>−7</sub>) / 7 &nbsp;→&nbsp; media diaria de los últimos 7 días <u>completos</u>.</li>
+    <li><b>V2</b> = T<sub>−1</sub> + T<sub>−2</sub> &nbsp;→&nbsp; volumen de los últimos 2 días completos.</li>
+    <li><b>R</b> = V2 / (2 × AVG7) &nbsp;→&nbsp; ratio de actividad reciente: <b>R &lt; 1</b> = está publicando menos de lo habitual (posible recuperación); <b>R &gt; 1</b> = momentum alto.</li>
+    <li><b>λ48</b> = 2 × AVG7 × ajuste(R), donde <span class="mono">ajuste(R) = clamp(1 + 0.5·(R−1), 0.5, 1.5)</span> (momentum con regresión parcial hacia la media; parámetros fijos).</li>
+  </ul>
+</section>
+
+<!-- ============ 4. MODELO ============ -->
+<section>
+  <h2>4 · El modelo de probabilidad</h2>
+  <p>El número de tweets en 48 h se modela como una variable de Poisson: <b>X ~ Poisson(λ48)</b>. Para un mercado con bin [A, B]:</p>
+  <p class="mono" style="padding:10px; display:block;">p_modelo = P(A ≤ X ≤ B) = F(B) − F(A−1),&nbsp; donde F es la función de distribución de Poisson con media λ restante = λ48 × (48 − horas_transcurridas)/48</p>
+  <p>Si la ventana del mercado ya lleva horas abierta y se han publicado T<sub>0</sub> tweets, se resta T<sub>0</sub> de los límites (el motor <span class="mono">senal.py</span> y la hoja <span class="mono">Señal</span> lo hacen automáticamente). Se recomienda entrar solo en la <b>primera mitad de la ventana</b> (horas ≤ 24).</p>
+</section>
+
+<!-- ============ 5. REGLAS ============ -->
+<section>
+  <h2>5 · Reglas de entrada (todas obligatorias)</h2>
+  <div class="regla"><span class="n">1</span><span>Solo mercados «Elon Musk # tweets» de ventana <b>48 h</b> con reglas de resolución claras.</span></div>
+  <div class="regla"><span class="n">2</span><span>Volumen del mercado ≥ $5.000 y liquidez ≥ $1.000 (evita manipulación y falta de salida).</span></div>
+  <div class="regla"><span class="n">3</span><span><b>Cuota ≥ 3.00</b> en el lado elegido (precio ≤ $0.333). Si no se cumple → <b>PASAR</b>, nunca perseguir.</span></div>
+  <div class="regla"><span class="n">4</span><span>Señal probabilística: <b>p_modelo ≥ 60%</b> → candidato a YES; <b>p_modelo ≤ 30%</b> → candidato a NO (cuota ≥ 3 en ambos casos).</span></div>
+  <div class="regla"><span class="n">5</span><span><b>AVG7 ≥ 5</b> tweets/día (base de datos mínima; con menos, el modelo no es estable).</span></div>
+  <div class="regla"><span class="n">6</span><span><b>Una sola apuesta activa.</b> No se abre la siguiente hasta que la anterior se ha <u>resuelto</u> (los mercados de 48 h resuelven ~1–2 días tras cerrar).</span></div>
+  <div class="regla"><span class="n">7</span><span>Entrar solo en la primera mitad de la ventana (horas transcurridas ≤ 24).</span></div>
+
+  <h3>Flujo de decisión</h3>
+  <div class="flujo">
+    <div class="nodo">1️⃣ ¿Existe mercado 48 h válido (R1, R2)? &nbsp;<span class="no">NO → PASAR</span></div>
+    <div class="flecha">▼</div>
+    <div class="nodo">2️⃣ ¿Está resuelta la apuesta anterior? (R6) &nbsp;<span class="no">NO → ESPERAR a que se resuelva</span></div>
+    <div class="flecha">▼</div>
+    <div class="nodo">3️⃣ Calcular AVG7, V2, R, λ48 y p_modelo del bin [A,B] (R4, R5) &nbsp;<span class="no">¿AVG7 &lt; 5? → PASAR</span></div>
+    <div class="flecha">▼</div>
+    <div class="nodo">4️⃣ <span class="si">p_modelo ≥ 0.60 y precio YES ≤ 0.333 → APOSTAR YES</span><br>
+                     <span class="si">p_modelo ≤ 0.30 y precio NO ≤ 0.333 → APOSTAR NO</span><br>
+                     <span class="no">cualquier otro caso → PASAR (no hay ventaja)</span></div>
+    <div class="flecha">▼</div>
+    <div class="nodo">5️⃣ Apostar el stake del paso actual del ciclo (tabla §6), anotar en el Registro, esperar resolución.</div>
+  </div>
+</section>
+
+<!-- ============ 6. TABLA ============ -->
+<section>
+  <h2>6 · La tabla de apuestas (progresión 1.50× desde $3.30)</h2>
+  <p>Stake del paso <i>n</i>: <b>$3.30 × 1.5<sup>n−1</sup></b>, redondeado al céntimo al alza. Tras un acierto → se reinicia en $3.30. Tras el paso 7 sin acierto → el ciclo se cierra (stop-loss) y se reinicia tras 24 h. Beneficio neto mostrado a cuota 3.00 (precio 0.33):</p>
+  <table>
+    <tr><th>Paso</th><th class="derecha">Stake ($)</th><th class="derecha">Pérdida acumulada si falla ($)</th><th class="derecha">Neto si acierta — cuota 3.00 ($)</th><th class="derecha">Neto si acierta — cuota 4.00 ($)</th></tr>
+    <tr><td>1</td><td class="derecha">3.30</td><td class="derecha">3.30</td><td class="derecha">+6.60</td><td class="derecha">+9.90</td></tr>
+    <tr><td>2</td><td class="derecha">4.95</td><td class="derecha">8.25</td><td class="derecha">+6.60</td><td class="derecha">+11.55</td></tr>
+    <tr><td>3</td><td class="derecha">7.43</td><td class="derecha">15.68</td><td class="derecha">+6.61</td><td class="derecha">+14.04</td></tr>
+    <tr><td>4</td><td class="derecha">11.14</td><td class="derecha">26.82</td><td class="derecha">+6.61</td><td class="derecha">+17.75</td></tr>
+    <tr><td>5</td><td class="derecha">16.71</td><td class="derecha">43.53</td><td class="derecha">+6.61</td><td class="derecha">+23.31</td></tr>
+    <tr><td>6</td><td class="derecha">25.06</td><td class="derecha">68.59</td><td class="derecha">+6.59</td><td class="derecha">+31.65</td></tr>
+    <tr class="resaltada"><td>7 ⛔ límite</td><td class="derecha">37.59</td><td class="derecha">106.18</td><td class="derecha">+6.60</td><td class="derecha">+44.19</td></tr>
+    <tr><td>8</td><td class="derecha">56.39</td><td class="derecha">162.57</td><td class="derecha">+6.60</td><td class="derecha">+63.00</td></tr>
+    <tr><td>9</td><td class="derecha">84.59</td><td class="derecha">247.16</td><td class="derecha">+6.60</td><td class="derecha">+91.18</td></tr>
+    <tr><td>10</td><td class="derecha">126.87</td><td class="derecha">374.03</td><td class="derecha">+6.60</td><td class="derecha">+133.47</td></tr>
+    <tr><td>11</td><td class="derecha">190.30</td><td class="derecha">564.33</td><td class="derecha">+6.59</td><td class="derecha">+196.89</td></tr>
+    <tr><td>12</td><td class="derecha">285.45</td><td class="derecha">849.78</td><td class="derecha">+6.59</td><td class="derecha">+292.03</td></tr>
+  </table>
+  <div class="info">Los pasos 8–12 requieren bankrolls de $1.000+; <b>este sistema NO los usa</b>: el límite de ciclo es el <b>paso 7</b> ($106.18 de exposición máxima).</div>
+
+  <h3>Las matemáticas del ciclo (por qué funciona)</h3>
+  <ul>
+    <li>Cada ciclo ganado paga <b>+$6.60 neto</b> (≈) en cualquier paso, porque la progresión geométrica 1.5× con cuota 3.00 se compensa exactamente.</li>
+    <li><b>Punto de equilibrio: p* = 33.3%</b> por apuesta (1 / cuota 3.00). Es la probabilidad mínima para no perder dinero a largo plazo. La regla de entrada exige p_modelo ≥ 60%, un margen de +26.7 puntos.</li>
+    <li>Con p_modelo = 60% y límite de 7 pasos: probabilidad de perder un ciclo completo = 0.40<sup>7</sup> ≈ <b>0.16%</b> (1 de cada ~610 ciclos), y el valor esperado por ciclo ≈ <b>+$6.42</b>.</li>
+    <li>Si la cuota es mayor (precio menor), el equilibrio baja aún más (cuota 4.00 → p* = 25%).</li>
+  </ul>
+</section>
+
+<!-- ============ 7. GESTION ============ -->
+<section>
+  <h2>7 · Gestión de bankroll y disciplina</h2>
+  <div class="grid2">
+    <div class="kpi"><div class="v">$500</div><div class="l">Bankroll mínimo recomendado</div></div>
+    <div class="kpi"><div class="v">$106.18</div><div class="l">Riesgo máx. de un ciclo (paso 7) ≈ 21%</div></div>
+    <div class="kpi"><div class="v">24 h</div><div class="l">Pausa obligatoria tras un ciclo perdido</div></div>
+    <div class="kpi"><div class="v">≤ 24 h</div><div class="l">Ventana de entrada dentro del mercado</div></div>
+  </div>
+  <ul style="margin-top:10px;">
+    <li>Una apuesta a la vez: la <b>regla secuencial</b> impide acumular exposiciones solapadas (R6). Como los mercados resuelven en 2–4 días, habrá ~1–2 apuestas por semana.</li>
+    <li><b>No perseguir precios:</b> si la cuota baja de 3.00 después de la señal, se abandona la operación.</li>
+    <li><b>Stop de ciclo en el paso 7:</b> se asume la pérdida ($106.18 máx.) y se reinicia en $3.30 tras 24 h. Prohibido «saltarse» el stop para intentar recuperar.</li>
+    <li><b>Regla de pausa:</b> si en 30 días el win rate &lt; 40% o el beneficio &lt; $0 → parar y recalibrar (los umbrales y bins del modelo, no la tabla).</li>
+    <li>Solo dinero prescindible. Nunca aumentar el stake inicial.</li>
+  </ul>
+</section>
+
+<!-- ============ 8. MEDICION ============ -->
+<section>
+  <h2>8 · Medición y KPIs (que sea medible y auditable)</h2>
+  <p>Cada apuesta se registra el mismo día en la hoja <b>Registro</b> del Excel: fecha, mercado, lado, precio, AVG7, V2, R, p_modelo, paso, stake y resultado. El panel <b>KPIs</b> calcula automáticamente:</p>
+  <ul>
+    <li>Apuestas resueltas / ganadas / perdidas y <b>win rate</b> (meta del diseño: ≥ 60%).</li>
+    <li><b>Beneficio neto</b>, <b>ROI sobre bankroll</b> y saldo actual.</li>
+    <li><b>Racha máxima de pérdidas</b> y peor saldo (proxy de drawdown).</li>
+    <li>Nº de ciclos, cuota media obtenida y total invertido.</li>
+  </ul>
+  <div class="info">Con los datos en CSV (<span class="mono">fecha,tweets</span>), el script <span class="mono">senal.py --backtest</span> simula la estrategia completa sobre el histórico (señal → martingala → reinicio → resolución real) para medir win rate y beneficio antes de arriesgar dinero real. Los datos sintéticos de <span class="mono">datos_ejemplo.csv</span> sirven para probarlo.</div>
+</section>
+
+<!-- ============ 9. EJEMPLO ============ -->
+<section>
+  <h2>9 · Ejemplo numérico completo</h2>
+  <p><b>Escenario (datos de ejemplo del CSV adjunto, día de evaluación 7 ago 2026):</b> últimos 7 días = [22, 25, 17, 37, 20, 67, 28]</p>
+  <table>
+    <tr><th>Métrica</th><th class="derecha">Valor</th><th>Interpretación</th></tr>
+    <tr><td>AVG7 = 216/7</td><td class="derecha">30.86 tweets/día</td><td>ritmo base alto</td></tr>
+    <tr><td>V2 = 67 + 28</td><td class="derecha">95 tweets</td><td>muy activo</td></tr>
+    <tr><td>R = 95 / (2 × 30.86)</td><td class="derecha">1.54</td><td>momentum alto</td></tr>
+    <tr><td>ajuste(R)</td><td class="derecha">1.27</td><td>persistencia parcial</td></tr>
+    <tr><td>λ48 = 2 × 30.86 × 1.27</td><td class="derecha">78.4 tweets</td><td>esperado en 48 h</td></tr>
+    <tr><td>Mercado «≥ 50 tweets en 48 h» a $0.33 (cuota 3.03)</td><td class="derecha">p_modelo ≈ 99.97%</td><td><span class="ok">APOSTAR YES · paso 1 · $3.30</span></td></tr>
+  </table>
+  <p><b>Contraejemplo (día tranquilo):</b> si AVG7 = 12.5 y V2 = 35 → λ48 ≈ 30. El mismo bin «≥ 50» da p_modelo ≈ 0.05% y el mismo «≥ 30» ≈ 50% (sin ventaja) → <span class="ko">PASAR</span> en ambos casos. Apostar solo cuando el modelo dice ≥ 60%.</p>
+  <p><b>Resultado de la simulación (datos de ejemplo, 80 días, bin «≥50» a 0.33 fijo):</b> 21 apuestas, 16 G / 5 P, win rate 76.2%, beneficio +$107.45, racha máx. de pérdidas 1, exposición máx. $8.25. Es una <i>demo del mecanismo</i>, no una garantía: el resultado real depende de los precios reales y de la calidad del modelo.</p>
+</section>
+
+<!-- ============ 10. LIMITACIONES ============ -->
+<section>
+  <h2>10 · Limitaciones y aviso de riesgo</h2>
+  <ul>
+    <li>El modelo Poisson es una simplificación: la actividad de Musk es irregular (rachas, borrado de posts, viajes, política). El ajuste de momentum y los umbrales son calibráveis con tus datos históricos.</li>
+    <li>Los mercados de 48 h no existen todos los días; los días sin mercado o sin señal correcta = <b>sin apuesta</b>.</li>
+    <li>La resolución depende de Social Blade / conteo manual: verifica siempre las reglas del mercado antes de apostar.</li>
+    <li>La liquidez de estos mercados es limitada (cientos a miles de $): las órdenes grandes pueden mover el precio (slippage).</li>
+    <li>El martingala concentra el riesgo: con 7 pasos, una racha adversa cuesta $106.18. La progresión <b>no</b> garantiza recuperar pérdidas; solo gestiona el tamaño.</li>
+    <li>Esto no es asesoramiento financiero. El juego conlleva riesgo de pérdida total.</li>
+  </ul>
+  <p class="ref">Fuentes de referencia: mercados Polymarket «Elon Musk # tweets» (ventanas 48 h/semanales/mensuales, resolución Social Blade; totales reales resueltos abr-jul 2026); recogida propia vía x.com (r.jina.ai) + xcancel (ver §11); PostXPulse (167 posts, 28 jun–5 jul 2026, ≈23.9/día); análisis de actividad 2024-2025 (medias ~30-100/día según periodo; picos 60-100+).</p>
+</section>
+
+<!-- ============ 11. RECOGIDA AUTOMATICA ============ -->
+<section>
+  <h2>11 · Recogida automática de datos (instalada y funcionando)</h2>
+  <p>El script <span class="mono">recoger_tweets.py</span> recoge automáticamente la actividad de @elonmusk, aplica las reglas de conteo del mercado (posts + quotes + reposts, sin replies), agrupa por día en hora ET y mantiene <span class="mono">datos_elon.csv</span> listo para <span class="mono">senal.py</span>.</p>
+
+  <h3>Fuentes (por orden de precisión)</h3>
+  <ol>
+    <li><b>x.com renderizado vía r.jina.ai</b> — timestamps <b>exactos</b> de posts Y de reposts (la hora que muestra el perfil es la del propio repost). Sin API key. ~5-15 tweets por pasada; en modo continuo se acumula. Tiene retries automáticos contra Cloudflare.</li>
+    <li><b>xcancel.com</b> (espejo Nitter) — ~21 tweets por pasada, como respaldo. <b>Limitación:</b> los reposts muestran la fecha del tweet original, no la del repost; en modo continuo se atribuyen al día en que se vieron por primera vez (error &lt; intervalo de polling).</li>
+    <li><b>X API v2 oficial</b> (<span class="mono">--fuente api</span> + <span class="mono">X_BEARER_TOKEN</span>) — exacta y con paginación completa; el plan Basic (~$100/mes, ~60k posts/mes) es el adecuado para conteo completo de Musk.</li>
+  </ol>
+
+  <h3>Uso</h3>
+  <div class="mono" style="padding:10px; display:block; white-space:pre;"># pasada única (backfill)
+python3 recoger_tweets.py --dias 30
+
+# modo continuo (recomendado: acumula precisión + refresca precios)
+python3 recoger_tweets.py --loop --intervalo 15 --mercado
+
+# resumen diario + métricas AVG7/V2/R/λ48
+python3 recoger_tweets.py --resumen
+
+# corregir un día a mano
+python3 recoger_tweets.py --manual 2026-08-08 35
+
+# cron sugerido (1 vez al día basta para la señal):
+# 0 12 * * * cd /ruta && python3 recoger_tweets.py --dias 30 &gt;&gt; recoger.log 2&gt;&amp;1</div>
+
+  <h3>Precios de Polymarket automatizados (nuevo en v1.2)</h3>
+  <p>El script <span class="mono">mercado_polymarket.py</span> descarga en vivo los mercados «Elon Musk # tweets», parsea los bins y precios YES, calcula las cuotas (=1/precio) y guarda <span class="mono">mercado_activo.json</span>. El loop con <span class="mono">--mercado</span> lo refresca en cada pasada. El script <span class="mono">senal_vivo.py</span> une todo en una sola orden:</p>
+  <div class="mono" style="padding:10px; display:block; white-space:pre;"># SEÑAL COMPLETA automática (tweets + mercado + veredicto por bin)
+python3 senal_vivo.py --actualizar --recoger
+
+# solo ver mercado
+python3 mercado_polymarket.py
+
+# con datos de referencia (mientras no haya ≥9 días propios):
+python3 senal_vivo.py --actualizar --avg7 27 --v2 50</div>
+  <p><b>Salida de ejemplo real (8 ago 2026, mercado 48 h activo):</b> el sistema evalúa los 10 bins, calcula p_modelo con λ restante y T0 (tweets ya publicados en la ventana), y aplica R3 (cuota ≥ 3) + R4 (p ≥ 60% / ≤ 30%). Veredicto obtenido: <b>PASAR</b> — el bin «&lt;40» tiene p_modelo 100% pero su cuota (2.67) no llega a 3.00, y el resto no alcanza las probabilidades exigidas. La disciplina se aplica sola.</p>
+
+  <h3>Estado real a 8 de agosto de 2026 (en vivo)</h3>
+  <ul>
+    <li><b>datos_elon.csv: 14 días completos</b> (25 jul – 7 ago), reconstruidos con <span class="mono">construir_serie.py</span> a partir de los <b>totales REALES de los mercados resueltos</b> de Polymarket (48h y semanales, que resuelven con Social Blade): 30 jul–1 ago = 65-89, 1-3 ago = 40-64, 3-5 ago = 40-64, 25 jul–1 ago = 150-164, 31 jul–7 ago = 180-199. La serie es consistente con todas las ventanas (ver <span class="mono">fuentes_serie.json</span>).</li>
+    <li>El colector continuo (loop 15 min, jina/x.com + xcancel + precios Polymarket) <b>preserva y refina</b> estos días: solo sobreescribe con conteos directos mayores (guard monótono), y añade días nuevos conforme los completa.</li>
+    <li><b>Backtest con datos propios ejecutado</b> (14 días): <span class="mono">python3 senal.py --csv datos_elon.csv --backtest --bin 40 64 --precio 0.33</span> → 1 apuesta (3-5 ago, real=52), <b>1G/0P, +$6.70</b>; con bin «50+» a 0.33 → idéntico, +$6.70. Con más días la muestra crecerá.</li>
+    <li>Métricas actuales: <b>AVG7 = 26.1</b> (últimos 7 días: 32,25,25,26,26,25,24) · <b>V2 = 49</b> · R = 0.94 · λ48 = 50.6.</li>
+    <li><b>Señal en vivo (senal_vivo.py --actualizar)</b>: mercado 48h «Ago 6-8» → todos los bins PASAR (el «&lt;40» tiene p=100% pero cuota 2.53 &lt; 3.00; el resto no cumple p_modelo). Mercados semanales → PASAR. La disciplina sigue intacta.</li>
+  </ul>
+  <div class="alert"><b>Nota de calidad:</b> los días reconstruidos son consistentes con las resoluciones reales pero no son conteos directos segundo a segundo; el colector los irá sustituyendo por conteos directos exactos conforme acumule cobertura (7+ días de loop continuo ≈ datos 100% directos).</div>
+</section>
+
+<footer>Estrategia v1.1 · 8 agosto 2026 · Recogida automática instalada · Documento de gestión personal — no constituye asesoramiento financiero.</footer>
+</div>
+</body>
+</html>

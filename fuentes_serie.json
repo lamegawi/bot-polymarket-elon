@@ -1,0 +1,83 @@
+{
+ "metodo": "Reconstrucción por mínimos cuadrados con regularización de las ventanas reales resueltas de Polymarket (48h y semanales, mediodía ET→mediodía ET; fuente de resolución: Social Blade). Media de días = (inicio+fin del bin)/2. Regularización: suavidad día a día + prior 24 tweets/día.",
+ "anclas": [
+  {
+   "ventana": [
+    "2026-07-30",
+    "2026-07-31",
+    "2026-08-01"
+   ],
+   "rango": [
+    65,
+    89
+   ]
+  },
+  {
+   "ventana": [
+    "2026-08-01",
+    "2026-08-02",
+    "2026-08-03"
+   ],
+   "rango": [
+    40,
+    64
+   ]
+  },
+  {
+   "ventana": [
+    "2026-08-03",
+    "2026-08-04",
+    "2026-08-05"
+   ],
+   "rango": [
+    40,
+    64
+   ]
+  },
+  {
+   "ventana": [
+    "2026-08-06",
+    "2026-08-07",
+    "2026-08-08"
+   ],
+   "rango": [
+    40,
+    64
+   ]
+  },
+  {
+   "ventana": [
+    "2026-07-31",
+    "2026-08-01",
+    "2026-08-02",
+    "2026-08-03",
+    "2026-08-04",
+    "2026-08-05",
+    "2026-08-06",
+    "2026-08-07"
+   ],
+   "rango": [
+    180,
+    199
+   ]
+  },
+  {
+   "ventana": [
+    "2026-07-25",
+    "2026-07-26",
+    "2026-07-27",
+    "2026-07-28",
+    "2026-07-29",
+    "2026-07-30",
+    "2026-07-31",
+    "2026-08-01"
+   ],
+   "rango": [
+    150,
+    164
+   ]
+  }
+ ],
+ "observacion_parcial": "Ago7 ≥ 18 tweets (conteo directo xcancel/jina el 8-ago 03:30 UTC) — respetado por el regularizador",
+ "fecha_generacion": "2026-08-08"
+}
