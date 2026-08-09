@@ -55,7 +55,6 @@ jobs:
       - run: pip install openpyxl py-clob-client
 
       - name: Ejecutar una pasada del bot
-        working-directory: estrategia_elon_tweets
         env:
           POLY_API_KEY: ${{ secrets.POLY_API_KEY }}
           POLY_API_SECRET: ${{ secrets.POLY_API_SECRET }}
