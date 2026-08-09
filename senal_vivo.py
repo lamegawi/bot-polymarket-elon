@@ -183,9 +183,10 @@ def main():
               f"· tweets ya en ventana (T0): {ev['t0']}")
         print(f"  {'bin':<10}{'p_modelo':>10}{'precio':>9}{'cuotaY':>8}{'cuotaN':>8}   veredicto")
         for b in ev["bins"]:
-            print(f"  {b['titulo']:<10}{b['p_modelo']:>10.1%}{b['precio_yes']:>9.3f}"
-                  f"{(f'{b['cuota_yes']:.2f}' if b['cuota_yes'] else '—'):>8}"
-                  f"{(f'{b['cuota_no']:.2f}' if b['cuota_no'] else '—'):>8}   {b['veredicto']}")
+            cy = ("{:.2f}".format(b['cuota_yes']) if b['cuota_yes'] else '—')
+            cn = ("{:.2f}".format(b['cuota_no']) if b['cuota_no'] else '—')
+            print("  {:<10}{:>10.1%}{:>9.3f}{:>8}{:>8}   {}".format(
+                b['titulo'], b['p_modelo'], b['precio_yes'], cy, cn, b['veredicto']))
         print()
     if not candidatas:
         print("► VEREDICTO GLOBAL: PASAR — ningún bin cumple (p_modelo ≥ 60% o ≤ 30%) "
