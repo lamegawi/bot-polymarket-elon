@@ -91,20 +91,22 @@ def cargar_config():
     return cfg
 
 
-def get_client():
+def get_client(signature_type=None):
     """Cliente CLOB (import diferido: solo se necesita para dinero real).
-    IMPORTANTE (Polymarket V2, 28-abr-2026): las órdenes firmadas con el
-    SDK V1 (py-clob-client) ya NO funcionan en producción. Se necesita el
-    SDK V2:  pip install py-clob-client-v2
-    La API de V2 es compatible en forma (mismo constructor y métodos)."""
+    IMPORTANTE (Polymarket V2, 28-abr-2026): se necesita el SDK V2:
+    pip install py-clob-client-v2
+    FIRMAS SMART WALLET: si tu cuenta se creó por email (deposit/proxy
+    wallet), el firmante y el dueño de los fondos son distintos. Hay que
+    usar signature_type=1 (POLY_PROXY) o 3 (POLY_1271). Por defecto se
+    usa POLY_PROXY cuando hay wallet_address (funder); puedes forzarlo
+    con el campo "signature_type" (0-3) en config_real.json."""
     try:
         from py_clob_client_v2.client import ClobClient
         from py_clob_client_v2.clob_types import ApiCreds
+        from py_clob_client_v2 import SignatureTypeV2
     except ImportError as e:
         sys.exit(f"Falta el SDK V2 de Polymarket ({e}).\n"
-                 f"Ejecuta:  python -m pip install py-clob-client-v2\n"
-                 f"(El V1 'py-clob-client' ya no puede colocar órdenes desde "
-                 f"la migración a CLOB V2 de abril 2026.)")
+                 f"Ejecuta:  python -m pip install py-clob-client-v2")
     cfg = cargar_config()
     signer = (cfg.get("wallet_private_key") or "").strip()
     if not signer:
@@ -118,6 +120,12 @@ def get_client():
     wallet = (cfg.get("wallet_address") or cfg.get("funder_address") or "").strip()
     if wallet:
         kwargs["funder"] = wallet
+    if signature_type is None:
+        signature_type = cfg.get("signature_type")
+    if signature_type is None:
+        # auto: smart wallet (funder distinto del signer) → POLY_PROXY; EOA puro → EOA
+        signature_type = int(SignatureTypeV2.POLY_PROXY) if wallet else int(SignatureTypeV2.EOA)
+    kwargs["signature_type"] = int(signature_type)
     client = ClobClient(HOST, chain_id=137, key=signer, **kwargs)
     if "creds" not in kwargs:
         try:
@@ -409,10 +417,17 @@ def abrir(estado, dry=False, actualizar=False):
     else:
         try:
             from py_clob_client_v2.clob_types import OrderArgs
-            # SDK V2: create_and_post_order (el OrderType va aparte, no como
-            # 2º argumento de create_order, que ahora es 'options').
+            # SDK V2: el 'size' de OrderArgs son SHARES, no dólares.
+            # stake $X a precio P → shares = X/P (redondeo a 2 dec).
+            size_shares = round(c["stake"] / c["precio"], 2)
+            if size_shares < 5:
+                print(f"  [BLOQUEADO] tamaño {size_shares} shares < mínimo 5 "
+                      f"(stake ${c['stake']:.2f} a precio {c['precio']:.3f}).")
+                return False
+            print(f"  (stake ${c['stake']:.2f} → {size_shares} shares a "
+                  f"{c['precio']:.3f})")
             resp = client.create_and_post_order(
-                OrderArgs(price=c["precio"], size=c["stake"],
+                OrderArgs(price=c["precio"], size=size_shares,
                           side="BUY", token_id=token_id))
             order_id = resp.get("orderID") or resp.get("order_id")
             print(f"  Orden enviada: {order_id}  (respuesta: {str(resp)[:120]})")
@@ -508,7 +523,7 @@ def pasada_real(dry=False, actualizar=False, excel=False):
 
 def probar_orden():
     """PRUEBA SEGURA del pipeline de órdenes reales (firma V2):
-    coloca una orden límite de $0.01 a precio 0.01 en el primer bin del
+    coloca una orden límite de 5 shares a precio 0.01 (máx. 5 céntimos) en el primer bin del
     mercado 48h activo — es un precio imposible (los bins cotizan ≥ 0.10),
     por lo que NO se llenará nunca. Si se llenara, costaría 1 céntimo.
     Sirve para validar que la firma de órdenes V2 funciona antes de
@@ -525,7 +540,9 @@ def probar_orden():
     if not activo:
         print("  (no hay mercado 48h abierto ahora mismo)")
         return
-    b = activo["bins"][0]
+    # elegir el primer bin CON PRECIO REAL (no los bins muertos a 0.000)
+    b = next((x for x in activo["bins"] if (x.get("precio_yes") or 0) >= 0.02),
+             activo["bins"][0])
     tokens = token_id_para_bin(activo["slug"], b["titulo"])
     if not tokens:
         print(f"  (no encontré tokens para {b['titulo']})")
@@ -534,7 +551,7 @@ def probar_orden():
     try:
         from py_clob_client_v2.clob_types import OrderArgs
         resp = client.create_and_post_order(
-            OrderArgs(token_id=token_id, price=0.01, size=0.01, side="BUY"))
+            OrderArgs(token_id=token_id, price=0.01, size=5, side="BUY"))
         oid = resp.get("orderID") or resp.get("order_id")
         print(f"  ✔ Orden de prueba enviada: {oid}")
         print("  Si no hay error, la firma V2 funciona → puedes activar confirmado:true.")

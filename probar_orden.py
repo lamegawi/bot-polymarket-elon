@@ -27,7 +27,7 @@ import mercado_polymarket as mp
 
 def main():
     print("=" * 62)
-    print("PRUEBA DE ORDEN SEGURA (0.01$ a precio 0.01 — no se llenará)")
+    print("PRUEBA DE ORDEN SEGURA (5 shares a precio 0.01 = máx. 5 céntimos, no se llenará)")
     print("=" * 62)
     cfg = cargar_config()
     print(f"  confirmado: {cfg.get('confirmado')}  (no se necesita para esta prueba)")
@@ -47,7 +47,9 @@ def main():
         print("  ✖ no hay mercado 48h abierto ahora mismo (reintenta más tarde)")
         return 1
     print(f"  Mercado: {activo['titulo']}")
-    b = activo["bins"][0]
+    # elegir el primer bin CON PRECIO REAL (no los bins muertos a 0.000)
+    b = next((x for x in activo["bins"] if (x.get("precio_yes") or 0) >= 0.02),
+             activo["bins"][0])
     print(f"  Primer bin: {b['titulo']} (precio actual {b['precio_yes']:.3f})")
     tokens = token_id_para_bin(activo["slug"], b["titulo"])
     if not tokens:
@@ -56,30 +58,49 @@ def main():
     token_id = tokens[0]
     print(f"  Token YES: {token_id[:16]}…")
 
-    print("\nEnviando orden de prueba (price=0.01, size=0.01, BUY, GTC)…")
-    try:
-        from py_clob_client_v2.clob_types import OrderArgs
-        resp = client.create_and_post_order(
-            OrderArgs(token_id=token_id, price=0.01, size=0.01, side="BUY"))
-        oid = resp.get("orderID") or resp.get("order_id")
-        print(f"  ✔ Orden enviada. orderID: {oid}")
-        print("  Si has llegado aquí SIN ERROR → la firma V2 funciona ✅")
-        print("  Cancelando la orden de prueba…")
-        time.sleep(8)
+    print("\nEnviando orden de prueba (price=0.01, size=5, BUY, GTC)…")
+    # En cuentas por email (smart wallet) el firmante ≠ wallet: probar los
+    # tipos de firma de smart wallet en orden (POLY_PROXY → POLY_1271).
+    from py_clob_client_v2 import SignatureTypeV2
+    tipos = []
+    st_cfg = cfg.get("signature_type")
+    if st_cfg is not None:
+        tipos.append(int(st_cfg))
+    if cfg.get("wallet_address"):
+        tipos += [int(SignatureTypeV2.POLY_PROXY), int(SignatureTypeV2.POLY_1271)]
+    else:
+        tipos += [int(SignatureTypeV2.EOA)]
+    # dedupe manteniendo orden
+    tipos = list(dict.fromkeys(tipos))
+    ultimo_error = None
+    for st in tipos:
         try:
-            client.cancel_order(oid)
-            print("  ✔ Orden cancelada (sin riesgo).")
+            from py_clob_client_v2.clob_types import OrderArgs
+            cliente = get_client(signature_type=st)
+            resp = cliente.create_and_post_order(
+                OrderArgs(token_id=token_id, price=0.01, size=5, side="BUY"))
+            oid = resp.get("orderID") or resp.get("order_id")
+            print(f"  ✔ Orden enviada con signature_type={st} (POLY_PROXY=1, POLY_1271=3). orderID: {oid}")
+            print("  La firma de tu cuenta funciona ✅")
+            print("  Cancelando la orden de prueba…")
+            time.sleep(8)
+            try:
+                cliente.cancel_order(oid)
+                print("  ✔ Orden cancelada (sin riesgo).")
+            except Exception as e:
+                print(f"  (aviso al cancelar — no es grave): {e}")
+            print("\n✅ PRUEBA SUPERADA. Firma válida con signature_type=" + str(st))
+            print("  → añade en config_real.json:  \"signature_type\": " + str(st))
+            return 0
         except Exception as e:
-            print(f"  (aviso al cancelar — no es grave): {e}")
-        print("\n✅ PRUEBA SUPERADA: puedes poner \"confirmado\": true en config_real.json")
-        return 0
-    except Exception as e:
-        print(f"  ✖ ERROR al enviar la orden: {e}")
-        print("\n  Posibles causas:")
-        print("   - No está instalado el SDK V2:  python -m pip install py-clob-client-v2")
-        print("   - La clave privada no firma para esta cuenta (revisa wallet_private_key)")
-        print("   - El dominio/firma V2 tiene un matiz (pega el error aquí y lo ajusto)")
-        return 1
+            ultimo_error = e
+            print(f"  ✖ con signature_type={st}: {str(e)[:140]}")
+    print(f"\n  ✖ Ningún tipo de firma funcionó. Último error: {ultimo_error}")
+    print("  Posibles causas:")
+    print("   - No está instalado el SDK V2:  python -m pip install py-clob-client-v2")
+    print("   - La clave privada no es el firmante de esta cuenta (revisa wallet_private_key)")
+    print("   - La cuenta no es smart wallet (pégame el error y lo ajusto)")
+    return 1
 
 
 if __name__ == "__main__":
