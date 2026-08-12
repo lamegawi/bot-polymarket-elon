@@ -21,3 +21,6 @@ venv/
 tokenn generado.txt
 identidad git.txt
 api key secret*
+*.cfg
+api key secret*
+*.keys
