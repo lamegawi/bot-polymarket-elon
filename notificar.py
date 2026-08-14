@@ -215,7 +215,7 @@ def casi_senal(evaluados, horas=6):
             falta = f"cuota {cuota_lado:.2f} < 3.00 (falta precio más barato)"
         else:
             falta = f"p_modelo {p:.0%} fuera de zona (necesita ≥60% o ≤30%)"
-               slug = ev.get('slug') or ''
+        slug = ev.get('slug') or ''
         enlace = f"https://polymarket.com/event/{slug}" if slug else ""
         mensaje = (
             f"🟡 CASI SEÑAL — NO se apuesta (informativo)\n"
