@@ -27,6 +27,7 @@ import string
 import subprocess
 import time
 from datetime import datetime
+import saldo_ntfy
 from zoneinfo import ZoneInfo
 
 try:
@@ -112,7 +113,8 @@ def apuesta_abierta(act, saldo):
         f"Bin {act['bin_titulo']} · Lado {act['lado']}\n"
         f"Precio ${act['precio']:.3f} · Cuota {act['cuota']:.2f}\n"
         f"p_modelo: {act['p_modelo']:.0%} · Paso {act['paso']}\n"
-        f"Stake: ${act['stake']:.2f} · Saldo: ${saldo:.2f}"
+        f"Stake: ${act['stake']:.2f} · Saldo bot: ${saldo:.2f}\n"
+        f"{saldo_ntfy.saldo_real_texto()}"
     )
     return enviar(mensaje, titulo="🟢 Nueva apuesta abierta",
                   etiqueta="chart_with_upwards_trend")
@@ -131,7 +133,8 @@ def apuesta_cerrada(reg, saldo):
         f"Bin {reg['bin']} · Lado {reg['lado']}\n"
         f"Ganador real del mercado: {reg['real']}\n"
         f"Stake ${reg['stake']:.2f} · Paso {reg['paso']}\n"
-        f"Saldo: ${saldo:.2f}"
+        f"Saldo bot: ${saldo:.2f}\n"
+        f"{saldo_ntfy.saldo_real_texto()}"
     )
     return enviar(mensaje, titulo="🔔 Apuesta cerrada", etiqueta=etiqueta)
 
@@ -212,9 +215,10 @@ def casi_senal(evaluados, horas=6):
             continue
         cuota_lado = cy if lado == "YES" else cn
         if cuota_lado < senal.CUOTA_MINIMA:
-            falta = f"cuota {cuota_lado:.2f} < 3.00 (falta precio más barato)"
+            falta = f"cuota {cuota_lado:.2f} < {senal.CUOTA_MINIMA:.2f} (falta precio más barato)"
         else:
             falta = f"p_modelo {p:.0%} fuera de zona (necesita ≥60% o ≤30%)"
+        # enlace directo al mercado (para operar manualmente)
         slug = ev.get('slug') or ''
         enlace = f"https://polymarket.com/event/{slug}" if slug else ""
         mensaje = (
@@ -256,7 +260,8 @@ def resumen_diario(saldo, paso, historial, apuesta_activa=None,
     tot = sum(h["beneficio"] for h in historial)
 
     lineas = [f"📊 RESUMEN DIARIO — {hoy}",
-              f"Saldo: ${saldo:.2f} · Beneficio acumulado: ${tot:+.2f}",
+              f"Saldo bot: ${saldo:.2f} · {saldo_ntfy.saldo_real_texto()}",
+              f"Beneficio acumulado: ${tot:+.2f}",
               f"Operaciones: {n} totales ({g}G/{n-g}P) · Hoy: {n_hoy} ({g_hoy}G/{n_hoy-g_hoy}P)",
               f"Paso del ciclo: {paso}"]
     if apuesta_activa:
