@@ -485,8 +485,8 @@ def abrir(estado, dry=False, actualizar=False):
             f"💰 ORDEN {'SIMULADA' if dry else 'REAL'} enviada\n"
             f"Mercado: {c['slug']}\nBin {c['bin_titulo']} · {c['lado']} "
             f"@ {c['precio']:.3f} (cuota {c['cuota']:.2f})\n"
-            f"Paso {estado['paso']} · stake ${c['stake']:.2f}",
-            f"{saldo_ntfy.saldo_real_texto()}"
+            f"Paso {estado['paso']} · stake ${c['stake']:.2f}\n"
+            f"{saldo_ntfy.saldo_real_texto()}",
             titulo="💰 Apuesta REAL abierta",
             etiqueta="moneybag")
     except Exception:
@@ -539,7 +539,12 @@ def probar_orden():
     except Exception:
         print("  (sin mercado_activo.json: ejecuta primero el bot en papel)")
         return
-        activo = next((m for m in mercados if not m["cerrado"] and m["tipo"] == "48h" and m.get("fin_iso") and datetime.fromisoformat(m["fin_iso"]) > datetime.now(timezone.utc)), None)
+    ahora = datetime.now(timezone.utc)
+    activo = next((m for m in mercados
+                   if not m["cerrado"] and m["tipo"] == "48h"
+                   and m.get("fin_iso")
+                   and datetime.fromisoformat(m["fin_iso"]) > ahora), None)
+
     if not activo:
         print("  (no hay mercado 48h abierto ahora mismo)")
         return
